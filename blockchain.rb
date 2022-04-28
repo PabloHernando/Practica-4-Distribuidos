@@ -69,15 +69,15 @@ def launcher
 	puts ""
 	puts "Welcome to Simple Blockchain In Ruby !"
 	puts ""
-	# 1.5
+	sleep 1.5
 	puts "This program was created by Anthony Amar for and educationnal purpose"
 	puts ""
-	# 1.5
+	sleep 1.5
 	puts "Wait for the genesis (the first block of the blockchain)"
 	puts ""
 	for i in 1..10
 		print "."
-		# 0.5
+		sleep 0.5
 		break if i == 10
 	end
 	puts "" 
