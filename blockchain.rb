@@ -23,6 +23,7 @@ require 'pp'        							# For pp => pretty printer
 # require 'pry'                     # For on the fly debugging
 require_relative 'block'					# class Block
 require_relative 'transaction'		# method Transactions
+require_relative 'smartContracts'	# method to get the contracts data
 
 LEDGER = []
 
@@ -40,8 +41,8 @@ def create_first_block
 	i = 0
 	instance_variable_set( "@b#{i}", 
 												 Block.first( 
-													{ from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
-													{ from: "Keukenhof", to: "Anne", what: "Tulip Semper Augustus", qty: 7 } )
+													[{ from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
+													{ from: "Keukenhof", to: "Anne", what: "Tulip Semper Augustus", qty: 7 }] , [])
 											 )
 	LEDGER << @b0
 	pp @b0
@@ -54,7 +55,7 @@ end
 def add_block
 	i = 1
 	loop do
-		instance_variable_set("@b#{i}", Block.next( (instance_variable_get("@b#{i-1}")), get_transactions_data))
+		instance_variable_set("@b#{i}", Block.next( (instance_variable_get("@b#{i-1}")), get_transactions_data, get_smartContracts_data ))
 		LEDGER << instance_variable_get("@b#{i}")
 		p "============================"
 		pp instance_variable_get("@b#{i}")
@@ -68,15 +69,15 @@ def launcher
 	puts ""
 	puts "Welcome to Simple Blockchain In Ruby !"
 	puts ""
-	sleep 1.5
+	# 1.5
 	puts "This program was created by Anthony Amar for and educationnal purpose"
 	puts ""
-	sleep 1.5
+	# 1.5
 	puts "Wait for the genesis (the first block of the blockchain)"
 	puts ""
 	for i in 1..10
 		print "."
-		sleep 0.5
+		# 0.5
 		break if i == 10
 	end
 	puts "" 

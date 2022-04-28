@@ -3,11 +3,13 @@ class Block
 							:transactions_count, :previous_hash, 
 							:nonce, :hash 
 
-  def initialize(index, transactions, previous_hash)
+  def initialize(index, transactions, smartContracts, previous_hash)
     @index         		 	 = index
     @timestamp      	 	 = Time.now
     @transactions 	 		 = transactions
 		@transactions_count  = transactions.size
+    @smartContracts 	 		 = smartContracts
+		@smartContracts_count  = smartContracts.size
     @previous_hash 		 	 = previous_hash
     @nonce, @hash  		 	 = compute_hash_with_proof_of_work
   end
@@ -35,12 +37,12 @@ class Block
     sha.hexdigest 
   end
 
-  def self.first( *transactions )    # Create genesis block
+  def self.first( transactions, smartContracts )    # Create genesis block
     ## Uses index zero (0) and arbitrary previous_hash ("0")
-    Block.new( 0, transactions, "0" )
+    Block.new( 0, transactions, smartContracts, "0" )
   end
 
-  def self.next( previous, transactions )
-    Block.new( previous.index+1, transactions, previous.hash )
+  def self.next( previous, transactions, smartContracts )
+    Block.new( previous.index+1, transactions, smartContracts, previous.hash )
   end
 end  # class Block
