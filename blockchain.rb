@@ -86,5 +86,4 @@ def launcher
 	create_first_block
 end
 
-
 launcher
